@@ -1,0 +1,7 @@
+# This file exports the CMake target which should be passed to the
+# target_link_libraries command.
+
+set(LAMBDATWIST_FOUND 1)
+set(LAMBDATWIST_INCLUDE_DIRS "${CMAKE_INSTALL_PREFIX}/include")
+set(LAMBDATWIST_LIBRARIES "${CMAKE_INSTALL_PREFIX}/lib/liblambdatwist.so")
+

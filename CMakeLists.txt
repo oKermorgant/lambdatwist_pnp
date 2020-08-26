@@ -2,8 +2,6 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
 PROJECT(lambdatwist-pnp CXX) # defines ${CMAKE_PROJECT_NAME}(top level) PROJECT_NAME(most recent)
 
 
-
-
 macro(print_list name list)
     message("\n Listing: ${name}\n")
     foreach(item IN LISTS ${list})
@@ -31,9 +29,6 @@ set(CMAKE_CXX_FLAGS_RELEASE " -O3 -march=native -DNDEBUG ${WARN} ")
 
 
 
-
-
-
 option(RANDOM_SEED_FROM_TIME "generate a seed from time, default" OFF)
 if(RANDOM_SEED_FROM_TIME)
     add_definitions(-DRANDOM_SEED_FROM_TIME)
@@ -46,37 +41,13 @@ include_directories(".")
 include_directories("lambdatwist-p3p/utils")
 
 find_package(Ceres REQUIRED )
-INCLUDE_DIRECTORIES(${CERES_INCLUDE_DIRS})
+INCLUDE_DIRECTORIES(${CERES_INCLUDE_DIRS} .)
 
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
 
 #including headers here make them show up in older ides
+file(GLOB_RECURSE lambdatwist-headers "lambdatwist/*")
 
-set(lambdatwist-srcs "")
-list(APPEND lambdatwist-srcs lambdatwist/p3p_timers.h)
-list(APPEND lambdatwist-srcs lambdatwist/lambdatwist.p3p.h)
-list(APPEND lambdatwist-srcs lambdatwist/solve_cubic.h)
-list(APPEND lambdatwist-srcs lambdatwist/solve_eig0.h)
-list(APPEND lambdatwist-srcs lambdatwist/refine_lambda.h)
-
-
-set(util-srcs "")
-
-list(APPEND util-srcs utils/mlibtime.cpp)
-
-list(APPEND util-srcs utils/mlibtime.h )
-list(APPEND util-srcs utils/matlab_helpers.h)
-list(APPEND util-srcs utils/random.h)
-list(APPEND util-srcs utils/random_vectors.h)
-
-list(APPEND util-srcs utils/string_helpers.h)
-list(APPEND util-srcs utils/vector_utils.h)
-list(APPEND util-srcs utils/cvl/matrix.h)
-list(APPEND util-srcs utils/cvl/pose.h)
-list(APPEND util-srcs utils/cvl/rotation_helpers.h)
-
-
-print_list("utils" util-srcs)
 #file(GLOB_RECURSE utils2 )
 
 
@@ -86,9 +57,29 @@ print_list("utils" util-srcs)
 #list(APPEND util-srcs p3p_generator.h)
 
 # headers are included for ide benefit...
-add_executable(main test_pnp.cpp ${util-srcs} ${lambdatwist-srcs} pnp_ransac.cpp p4p.cpp)
-target_link_libraries(main ${CERES_LIBRARIES})
+add_library(lambdatwist SHARED src/mlibtime.cpp src/pnp_ransac.cpp src/p4p.cpp ${lambdatwist-headers})
+target_link_libraries(lambdatwist ${CERES_LIBRARIES})
 
 
+add_executable(main test_pnp.cpp simulator.h)
+target_link_libraries(main lambdatwist)
 
 message("================================================================================")
+
+
+# Install step
+install(TARGETS lambdatwist EXPORT lambdatwistConfig
+    ARCHIVE  DESTINATION lib
+    LIBRARY  DESTINATION lib
+    RUNTIME  DESTINATION bin)
+install(DIRECTORY lambdatwist DESTINATION include)
+
+set(ConfigPackageLocation lib/cmake/lambdatwist)
+
+set(CONF_INCLUDE_DIRS "${CMAKE_INSTALL_PREFIX}/include")
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/lambdatwistConfig.cmake.in
+"${PROJECT_BINARY_DIR}/lambdatwistConfig.cmake")
+
+install (FILES
+    ${CMAKE_CURRENT_BINARY_DIR}/lambdatwistConfig.cmake
+    DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/lambdatwist")

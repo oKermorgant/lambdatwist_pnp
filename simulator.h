@@ -1,6 +1,6 @@
 #pragma once
-#include <utils/cvl/pose.h>
-#include <utils/random.h>
+#include <lambdatwist/utils/cvl/pose.h>
+#include <lambdatwist/utils/random.h>
 namespace cvl{
 /// Uniform distribution on the unit sphere
 template<class T,int R> cvl::Vector<T,R> getRandomUnitVector(){

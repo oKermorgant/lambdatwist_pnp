@@ -26,8 +26,8 @@
  *
  ******************************************************************************/
 
-#include <utils/cvl/matrix.h>
-#include <utils/cvl/rotation_helpers.h>
+#include <lambdatwist/utils/cvl/matrix.h>
+#include <lambdatwist/utils/cvl/rotation_helpers.h>
 #include <vector>
 namespace cvl{
 
@@ -540,5 +540,4 @@ typedef Pose<double> PoseD;
 
 
 }// en<T> namespace cvl
-
 

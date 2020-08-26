@@ -31,7 +31,7 @@
 #include <sstream>
 #include <iomanip>
 
-#include <utils/cvl/pose.h>
+#include <lambdatwist/utils/cvl/pose.h>
 
 namespace mlib{
 

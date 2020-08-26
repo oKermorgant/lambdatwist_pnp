@@ -17,16 +17,12 @@
 
 
 #include <iostream>
-#include <utils/mlibtime.h>
-#include <pnp_ransac.h>
+#include <lambdatwist/utils/mlibtime.h>
+#include <lambdatwist/pnp/pnp_ransac.h>
 
-#include <utils/string_helpers.h>
-#include <utils/cvl/pose.h>
+#include <lambdatwist/utils/string_helpers.h>
+#include <lambdatwist/utils/cvl/pose.h>
 #include <simulator.h>
-
-
-
-
 
 
 

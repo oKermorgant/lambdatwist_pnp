@@ -21,7 +21,7 @@
  * \note MIT licence
  *
  ******************************************************************************/
-#include <utils/cvl/matrix.h>
+#include <lambdatwist/utils/cvl/matrix.h>
 
 
 namespace cvl{

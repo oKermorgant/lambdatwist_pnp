@@ -7,7 +7,7 @@
 #include <sstream>
 #include <iomanip>
 
-#include <utils/vector_utils.h>
+#include <lambdatwist/utils/vector_utils.h>
 
 typedef unsigned int uint;
 
@@ -250,5 +250,4 @@ void clear_and_reset_screenbuffer(){
 
 
 }  // end namespace mlib
-
 

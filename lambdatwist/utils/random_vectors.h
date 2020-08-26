@@ -19,8 +19,8 @@
  *
  ******************************************************************************/
 
-#include <utils/random.h>
-#include <utils/cvl/matrix.h>
+#include <lambdatwist/utils/random.h>
+#include <lambdatwist/utils/cvl/matrix.h>
 namespace mlib{
 /// Uniform distribution on the unit sphere
 template<class T,int R> cvl::Vector<T,R> getRandomUnitVector(){
