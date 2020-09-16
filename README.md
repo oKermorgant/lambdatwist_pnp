@@ -11,6 +11,6 @@ So I keep seeing people using very heavy robust loss functions for pnp, instead 
 In my experience the latter wins in every case except very high inlier noise, something which doesnt actually happen in practice for pnp problems. Avoid Opencvs Epnp in particular. 
 
 
-# This fork builds the library as a CMake findable package
+## This fork builds the library as a CMake findable package
 
 `sudo make install` allows `find_package(lambdatwist)` in other projects using CMake.
